@@ -3,7 +3,6 @@ from colorama import init
 from colorama import Fore
 
 def printMaze(maze):
-
     # colorama
     init()
 
@@ -25,6 +24,9 @@ def printMaze(maze):
 
         print('\n')
 
+#getter Maze
+def getMaze():
+    return maze
 
 # Környező mezők száma:
 def surroundingCells(rand_wall, wall):
@@ -244,8 +246,8 @@ def mainFunctionGenerateLab(wall, cell, unvisited, height, width, maze):
 wall = '0'
 cell = '1'
 unvisited = 'u'
-height = 20
-width = 20
+height = 12
+width = 12
 maze = []
 
 mainFunctionGenerateLab(wall, cell, unvisited, height, width, maze)
