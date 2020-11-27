@@ -27,22 +27,24 @@ class Walls(QGraphicsRectItem):
     def __init__(self, parent=None):
         QGraphicsRectItem.__init__(self, parent)
         self.setRect(0, 0, 40, 40)
+        self.setBrush(Qt.black)
         Walls.walls.append((self.x(), self.y()))
         print(self.x(), self.y())
 
 
-class FinishLine(QGraphicsLineItem):
+class Finish(QGraphicsRectItem):
 
     def __init__(self, parent=None):
-        QGraphicsLineItem.__init__(self, parent)
-        self.setLine(920, 600, 960, 600)
+        QGraphicsRectItem.__init__(self)
+        self.setRect(0, 0 , 40 , 40)
+        self.setBrush(Qt.green)
 
 
 class Player(QGraphicsRectItem):
 
     def __init__(self, parent=None):
         QGraphicsRectItem.__init__(self, parent)
-        self.setRect(0, 0, 40 , 40)
+        self.setRect(0, 0, 39 , 39)
         self.setFlag(QGraphicsItem.ItemIsFocusable)
         self.setBrush(Qt.red)
 
@@ -52,7 +54,7 @@ class Player(QGraphicsRectItem):
         try:
             colliding_items = self.collidingItems()
             for item in colliding_items:
-                if type(item) == type(FinishLine()):
+                if type(item) == type(Finish()):
                     msg = QMessageBox()
                     msg.setText("Nyertel")
                     msg.exec()
@@ -92,6 +94,23 @@ class Scene(QGraphicsScene):
 
         #a labirintus 2D-tömbben:
         t_maze2 = getMaze()
+        for i in range(len(t_maze2)):
+            for j in range(len(t_maze2)):
+                #print(t_maze2[i][j])
+                if t_maze2[i][j]=='0':
+                    wall=Walls()
+                    self.addItem(wall)
+                    wall.setPos(i*40, j*40)
+                    Walls.walls.append((wall.x(), wall.y()))
+                if t_maze2[i][j] == '2':
+                    finish = Finish()
+                    self.addItem(finish)
+                    finish.setPos(i*40, j*40)
+                if t_maze2[i][j] =='3':
+                    player = Player()
+                    self.addItem(player)
+                    player.setPos(i*40, j*40)
+                    player.setFocus()
 
 
         # for i in range(0, len(t_maze2)):
@@ -111,34 +130,34 @@ class Scene(QGraphicsScene):
 
 
 
-        wall1 = Walls()
-        wall2 = Walls()
-        wall3 = Walls()
+        # wall1 = Walls()
+        # wall2 = Walls()
+        # wall3 = Walls()
+        #
+        #
+        #
+        # wall1.setPos(80, 80)
+        # wall2.setPos(120, 80)
+        # wall3.setPos(120, 120)
+        #
+        #
+        # Walls.walls.append((wall1.x(),wall1.y()))
+        # Walls.walls.append((wall2.x(), wall2.y()))
+        # Walls.walls.append((wall3.x(), wall3.y()))
 
+        # print(wall1.pos())
 
+        # self.addItem(wall1)
+        # self.addItem(wall2)
+        # self.addItem(wall3)
 
-        wall1.setPos(80, 80)
-        wall2.setPos(120, 80)
-        wall3.setPos(120, 120)
-
-
-        Walls.walls.append((wall1.x(),wall1.y()))
-        Walls.walls.append((wall2.x(), wall2.y()))
-        Walls.walls.append((wall3.x(), wall3.y()))
-
-        print(wall1.pos())
-
-        self.addItem(wall1)
-        self.addItem(wall2)
-        self.addItem(wall3)
-
-        self.finish = FinishLine()
-        self.addItem(self.finish)
-        self.player = Player()
-        self.addItem(self.player)
-        self.player.setFocus()
-
-        print(self.player.pos())
+        # self.finish = FinishLine()
+        # self.addItem(self.finish)
+        # self.player = Player()
+        # self.addItem(self.player)
+        # self.player.setFocus()
+        #
+        # print(self.player.pos())
 
         self.view = QGraphicsView(self)
         self.view.setFixedSize(960, 640)
