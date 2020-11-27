@@ -1,11 +1,12 @@
 import sys
 from PyQt5 import QtWidgets, QtCore, QtGui
 from gui import Ui_MainWindow
+from PySide2.QtWidgets import QMainWindow
 
 class Controller:
 
     def __init__(self):
-        self.mw = QtWidgets.QMainWindow()
+        self.mw = QMainWindow()
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self.mw)
 
