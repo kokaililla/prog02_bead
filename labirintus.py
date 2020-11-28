@@ -246,8 +246,8 @@ def mainFunctionGenerateLab(wall, cell, unvisited, height, width, maze):
 wall = '0'
 cell = '1'
 unvisited = 'u'
-height = 12
-width = 12
+height = 20
+width = 20
 maze = []
 
 mainFunctionGenerateLab(wall, cell, unvisited, height, width, maze)
