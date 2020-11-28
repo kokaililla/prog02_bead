@@ -3,8 +3,7 @@ from labirintus import getMaze
 from PyQt5 import QtWidgets, QtCore, QtGui
 from gui import Ui_MainWindow
 from labWin import Ui_Dialog
-from PySide2.QtWidgets import QMainWindow
-
+from PySide2.QtWidgets import QMainWindow, QDialogButtonBox, QVBoxLayout, QDialog, QMessageBox
 
 class Controller:
 
@@ -21,14 +20,30 @@ class Controller:
         self.mw.show()
 
     def clickExit(self):
-        pass
+        print("Na")
+        msg = QMessageBox()
+        msg.setWindowTitle("Kilépés megerősítése")
+        msg.setText("Biztosan ki akar lépni?")
+        msg.setInformativeText("Kilépés esetén a mentés nem végezhető el.")
+        msg.setIcon(QMessageBox.Question)
+        msg.setStandardButtons(QMessageBox.Cancel | QMessageBox.Ok)
+        msg.setDefaultButton(QMessageBox.Cancel)
+
+        msg.buttonClicked.connect(self.popup_button)
+        msg.exec_()
+
+    def popup_button(self, i):
+        print(i.text())
+        if i.text() == "OK":
+            QtWidgets.QApplication.instance().quit()
 
     def clickStart(self):
         pass
 
     def clickResult(self):
+        pass
         # self.child_win = labWin.Ui_Dialog(self)
-        self.child_win.show()
+        # self.child_win.show()
 
     #main
     # t_maze = getMaze()
